@@ -1,8 +1,13 @@
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "../AppRouter/AppRouter";
+import Navbar from "../Navbar/Navbar";
+
 const App = () => {
   return (
-    <div className="App">
-      <p>Hello world!</p>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <AppRouter />
+    </BrowserRouter>
   );
 };
 
