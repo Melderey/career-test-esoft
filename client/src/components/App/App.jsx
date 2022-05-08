@@ -1,11 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "../AppRouter/AppRouter";
-import Navbar from "../Navbar/Navbar";
+import TextExample from "../TextExample/TextExample";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Navbar />
+      <TextExample />
       <AppRouter />
     </BrowserRouter>
   );
