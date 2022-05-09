@@ -16,8 +16,6 @@ const UserChat = () => {
     newTextChat.push(text);
     setTextChat(newTextChat);
     setText("");
-
-    console.log(123);
   };
 
   return (
@@ -43,7 +41,6 @@ const UserChat = () => {
               <input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                onSubmit={handleSubmitForm}
                 type="text"
                 className="form-control rounded-0"
                 placeholder="Введите сообщение"
