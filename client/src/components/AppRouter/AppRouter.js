@@ -8,7 +8,12 @@ const AppRouter = () => {
 
   return isAuth ? (
     <Switch>
-      <Route key={CHAT_ROUTE} path={CHAT_ROUTE} component={UserChat} exact={true} />
+      <Route
+        key={CHAT_ROUTE}
+        path={CHAT_ROUTE}
+        component={UserChat}
+        exact={true}
+      />
       <Redirect to={CHAT_ROUTE} />
     </Switch>
   ) : (

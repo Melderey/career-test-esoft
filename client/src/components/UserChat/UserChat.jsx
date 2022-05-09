@@ -1,22 +1,65 @@
+import { useState } from "react";
+import { uniqueId } from "lodash";
+
 import "./UserChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
-import { useState } from "react";
 
 const UserChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
+  const [text, setText] = useState("");
+  const [textChat, setTextChat] = useState([]);
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    const newTextChat = [...textChat];
+
+    newTextChat.push(text);
+    setTextChat(newTextChat);
+    setText("");
+
+    console.log(123);
+  };
+
   return (
     <>
       {isChatShow ? (
         <div className="user-chat">
-          <div>
+          <div className="bg-info p-2 rounded-top">
             <h3>Поддержка</h3>
-            <p> Будем рады ответить </p>
+            <p>Напишите ваше сообщение</p>
           </div>
-          <div class="align-self-center">
-            <button type="button" class="btn btn-outline-secondary">
-              Задать вопрос
-            </button>
+
+          <div className="p-2 overflow-auto justify-content-sm-end">
+            {textChat.map((el) => {
+              return (
+                <div key={uniqueId()}>
+                  <p>{el}</p>
+                </div>
+              );
+            })}
           </div>
+          <form>
+            <div className="align-self-center input-group">
+              <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onSubmit={handleSubmitForm}
+                type="text"
+                className="form-control rounded-0"
+                placeholder="Введите сообщение"
+                aria-label="Введите сообщение"
+                aria-describedby="button-addon2"
+              ></input>
+              <button
+                onClick={handleSubmitForm}
+                className="btn btn-outline-secondary rounded-0"
+                type="submit"
+                id="button-addon2"
+              >
+                Ок
+              </button>
+            </div>
+          </form>
         </div>
       ) : null}
 

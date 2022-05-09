@@ -6,10 +6,9 @@ const СollapseBtn = (props) => {
   return (
     <div className="collapse-btn">
       <button
-        
         onClick={() => setIsChatShow(!isChatShow)}
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary"
       >
         {isChatShow ? "Свернуть" : "Развернуть"}
       </button>

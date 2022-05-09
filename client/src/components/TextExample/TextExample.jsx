@@ -1,6 +1,6 @@
 const TextExample = () => {
   return (
-    <div class="m-2">
+    <div className="m-2">
       <h2>Когнитивные искажения: эффект ИКЕА</h2>
 
       <p>
