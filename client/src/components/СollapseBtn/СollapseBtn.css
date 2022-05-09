@@ -3,3 +3,7 @@
   right: 2rem;
   bottom: 2rem;
 }
+
+.collapse-btn button {
+  min-width: 7rem;
+}
