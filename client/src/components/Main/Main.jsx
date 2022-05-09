@@ -1,4 +1,4 @@
-const TextExample = () => {
+const Main = () => {
   return (
     <div className="m-2">
       <h2>Когнитивные искажения: эффект ИКЕА</h2>
@@ -19,4 +19,4 @@ const TextExample = () => {
   );
 };
 
-export default TextExample;
+export default Main;

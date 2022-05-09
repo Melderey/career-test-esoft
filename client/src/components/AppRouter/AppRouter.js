@@ -7,11 +7,18 @@ import {
 } from "../../constants";
 import UserChat from "../UserChat/UserChat";
 import Login from "../Login/Login";
-import OperatorChat from "../operatorChat/operatorChat";
+import OperatorChat from "../OperatorChat/OperatorChat";
+import Main from "../Main/Main";
 
 const AppRouter = () => {
   return (
     <Switch>
+      <Route 
+        key={MAIN_ROUTE} 
+        path={MAIN_ROUTE} 
+        component={Main} 
+        exact={true} 
+      />
       <Route
         key={CHAT_ROUTE}
         path={CHAT_ROUTE}
@@ -36,29 +43,3 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
-
-// const AppRouter = () => {
-//   const isAuth = true;
-
-//   return isAuth ? (
-//     <Switch>
-//       <Route
-//         key={CHAT_ROUTE}
-//         path={CHAT_ROUTE}
-//         component={UserChat}
-//         exact={true}
-//       />
-//       <Redirect to={CHAT_ROUTE} />
-//     </Switch>
-//   ) : (
-//     <Switch>
-//       <Route
-//         key={LOGIN_ROUTE}
-//         path={LOGIN_ROUTE}
-//         component={Login}
-//         exact={true}
-//       />
-//       <Redirect to={LOGIN_ROUTE} />
-//     </Switch>
-//   );
-// };
