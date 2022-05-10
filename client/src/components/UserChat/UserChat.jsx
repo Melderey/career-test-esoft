@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uniqueId } from "lodash";
 
 import "./UserChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
+import { PORT, USER_URL } from "../../constants";
 
 const UserChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
   const [text, setText] = useState("");
   const [textChat, setTextChat] = useState([]);
+
+  useEffect(() => {
+    const socket = new WebSocket(USER_URL);
+    socket.onopen = () => {
+      console.log(`Подключение ws установленно на порту ${PORT}`);
+    };
+  }, []);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
