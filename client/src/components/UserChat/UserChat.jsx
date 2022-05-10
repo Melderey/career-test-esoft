@@ -27,7 +27,7 @@ const UserChat = () => {
             <p>Напишите ваше сообщение</p>
           </div>
 
-          <div className="p-2 overflow-auto justify-content-sm-end">
+          <div className="p-2 overflow-auto">
             {textChat.map((el) => {
               return (
                 <div key={uniqueId()}>
@@ -51,7 +51,6 @@ const UserChat = () => {
                 onClick={handleSubmitForm}
                 className="btn btn-outline-secondary rounded-0"
                 type="submit"
-                id="button-addon2"
               >
                 Ок
               </button>
