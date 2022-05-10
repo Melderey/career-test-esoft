@@ -27,7 +27,7 @@ const UserChat = () => {
             <p>Напишите ваше сообщение</p>
           </div>
 
-          <div className="p-2 overflow-auto">
+          <div className="p-2 container">
             {textChat.map((el) => {
               return (
                 <div key={uniqueId()}>
