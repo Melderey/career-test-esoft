@@ -13,7 +13,7 @@ app.ws(GUEST_ROUTE, (ws, req) => {
   ws.on("message", (message) => {
     message = JSON.parse(message);
 
-    console.log(message);
+    console.log("aWss.clients ===", aWss.clients);
 
     aWss.clients.forEach((client) => {
       client.send(JSON.stringify(message));

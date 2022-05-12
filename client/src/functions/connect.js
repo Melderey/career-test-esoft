@@ -15,6 +15,10 @@ const Connect = (socket, textChat, setTextChat) => {
       setTextChat([...textChat, message]);
     };
   }, [textChat]);
+
+  socket.onerror = (error) => {
+    throw error;
+  };
 };
 
 export default Connect;
