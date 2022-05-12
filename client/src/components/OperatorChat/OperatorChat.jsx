@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { uniqueId } from "lodash";
 
 import { PORT, USER_URL, OPERATOR } from "../../constants";
 
 import "./OperatorChat.css";
+import textChatMap from "../../functions/textChatMap";
 
 const OperatorChat = () => {
   const [value, setValue] = useState("");
@@ -30,7 +30,7 @@ const OperatorChat = () => {
 
     const message = {
       type: OPERATOR,
-      message: value,
+      text: value,
       date: new Date().toLocaleString().slice(0, -3),
       event: "message",
     };
@@ -72,20 +72,7 @@ const OperatorChat = () => {
             <p>Карточка пользователя</p>
           </div>
 
-          <div className="container">
-            {textChat.map(({ message, type, date }) => {
-              const textAlign = type === OPERATOR ? "text-right" : "text-left";
-              const messageHeader = `${type} ${date}`;
-              const headerStyle = `${textAlign} header-style`;
-
-              return (
-                <div key={uniqueId()} className="mt-3">
-                  <p className={headerStyle}>{messageHeader}</p>
-                  <p className={textAlign}>{message}</p>
-                </div>
-              );
-            })}
-          </div>
+          <div className="container">{textChatMap(textChat, OPERATOR)}</div>
 
           <form>
             <div className="align-self-center input-group">

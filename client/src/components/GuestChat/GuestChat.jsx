@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { uniqueId } from "lodash";
 
 import "./GuestChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
 import { GUEST, PORT, USER_URL } from "../../constants";
+import textChatMap from "../../functions/textChatMap";
 
 const GuestChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
@@ -32,7 +32,7 @@ const GuestChat = () => {
 
     const message = {
       type: GUEST,
-      message: value,
+      text: value,
       date: new Date().toLocaleString().slice(0, -3),
       event: "message",
     };
@@ -50,20 +50,8 @@ const GuestChat = () => {
             <p>Напишите ваше сообщение</p>
           </div>
 
-          <div className="p-2 container">
-            {textChat.map(({ message, type, date }) => {
-              const textAlign = type === GUEST ? "text-right" : "text-left";
-              const messageHeader = `${type} ${date}`;
-              const headerStyle = `${textAlign} header-style`;
-
-              return (
-                <div key={uniqueId()} className="mt-3">
-                  <p className={headerStyle}>{messageHeader}</p>
-                  <p className={textAlign}>{message}</p>
-                </div>
-              );
-            })}
-          </div>
+          <div className="p-2 container">{textChatMap(textChat, GUEST)}</div>
+          
           <form>
             <div className="align-self-center input-group">
               <input
