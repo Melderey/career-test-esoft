@@ -10,6 +10,15 @@ app.use(cors());
 app.use(express.json());
 
 app.ws(CHAT_ROUTE, (ws, req) => {
+  ws.on("message", (message) => {
+    message = JSON.parse(message);
+
+    console.log(message);
+
+    aWss.clients.forEach((client) => {
+      client.send(JSON.stringify(message));
+    });
+  });
   console.log("Подключение к пользовательскому чату установлено");
 });
 

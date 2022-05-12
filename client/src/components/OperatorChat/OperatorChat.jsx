@@ -1,20 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { uniqueId } from "lodash";
+
+import { PORT, USER_URL } from "../../constants";
 
 import "./OperatorChat.css";
 
 const OperatorChat = () => {
-  const [isChatShow, setIsChatShow] = useState(false);
-  const [text, setText] = useState("");
+  const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
+  const socket = useRef();
 
-  const handleSubmitForm = (e) => {
+  useEffect(() => {
+    socket.current = new WebSocket(USER_URL);
+    socket.current.onopen = () => {
+      console.log(`Подключение ws установленно на порту ${PORT}`);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.current.onmessage = (e) => {
+      const message = JSON.parse(e.data);
+      setTextChat([...textChat, message]);
+    };
+  }, [textChat]);
+
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-    const newTextChat = [...textChat];
 
-    newTextChat.push(text);
-    setTextChat(newTextChat);
-    setText("");
+    await socket.current.send(JSON.stringify(value));
+    setValue("");
   };
 
   return (
@@ -53,7 +67,7 @@ const OperatorChat = () => {
           <div className="container">
             {textChat.map((el) => {
               return (
-                <div key={uniqueId()}  className="p-0 m-0 pt-0">
+                <div key={uniqueId()} className="p-0 m-0 pt-0">
                   <p>{el}</p>
                 </div>
               );
@@ -63,8 +77,8 @@ const OperatorChat = () => {
           <form>
             <div className="align-self-center input-group">
               <input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
                 type="text"
                 className="form-control rounded-0"
                 placeholder="Введите сообщение"
@@ -87,5 +101,3 @@ const OperatorChat = () => {
 };
 
 export default OperatorChat;
-
-

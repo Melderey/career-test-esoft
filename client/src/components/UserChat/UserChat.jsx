@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { uniqueId } from "lodash";
 
 import "./UserChat.css";
@@ -7,23 +7,29 @@ import { PORT, USER_URL } from "../../constants";
 
 const UserChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
-  const [text, setText] = useState("");
+  const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
+  const socket = useRef();
 
   useEffect(() => {
-    const socket = new WebSocket(USER_URL);
-    socket.onopen = () => {
+    socket.current = new WebSocket(USER_URL);
+    socket.current.onopen = () => {
       console.log(`Подключение ws установленно на порту ${PORT}`);
     };
   }, []);
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
-    const newTextChat = [...textChat];
+  useEffect(() => {
+    socket.current.onmessage = (e) => {
+      const message = JSON.parse(e.data);
+      setTextChat([...textChat, message]);
+    };
+  }, [textChat]);
 
-    newTextChat.push(text);
-    setTextChat(newTextChat);
-    setText("");
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    await socket.current.send(JSON.stringify(value));
+    setValue("");
   };
 
   return (
@@ -47,8 +53,8 @@ const UserChat = () => {
           <form>
             <div className="align-self-center input-group">
               <input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
                 type="text"
                 className="form-control rounded-0"
                 placeholder="Введите сообщение"
