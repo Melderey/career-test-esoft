@@ -38,3 +38,18 @@
   overflow-y: auto;
   max-height: 19rem;
 }
+
+.text-right {
+  text-align: right;
+  margin-bottom: 0;
+}
+
+.text-left {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.header-style {
+  font-size: 0.7rem;
+  font-style: italic;
+}

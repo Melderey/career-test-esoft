@@ -6,5 +6,5 @@ export const OPERATOR_ROUTE = "/operator_chat";
 export const LOGIN_ROUTE = "/login";
 export const USER_URL = `ws://localhost:${PORT}${GUEST_ROUTE}`;
 
-export const GUEST = "guest";
-export const OPERATOR = "OPERATOR";
+export const GUEST = "Гость";
+export const OPERATOR = "Оператор";

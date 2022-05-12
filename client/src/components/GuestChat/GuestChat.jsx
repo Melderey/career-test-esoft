@@ -20,8 +20,6 @@ const GuestChat = () => {
 
   useEffect(() => {
     socket.current.onmessage = (e) => {
-      // const { message, type } = JSON.parse(e.data);
-
       const message = JSON.parse(e.data);
 
       console.log(message);
@@ -35,7 +33,7 @@ const GuestChat = () => {
     const message = {
       type: GUEST,
       message: value,
-      id: Date.now(),
+      date: new Date().toLocaleString().slice(0, -3),
       event: "message",
     };
 
@@ -53,13 +51,14 @@ const GuestChat = () => {
           </div>
 
           <div className="p-2 container">
-            {textChat.map(({ message, type }) => {
+            {textChat.map(({ message, type, date }) => {
               const textAlign = type === GUEST ? "text-right" : "text-left";
-
-              console.log(textAlign);
+              const messageHeader = `${type} ${date}`;
+              const headerStyle = `${textAlign} header-style`;
 
               return (
-                <div key={uniqueId()} >
+                <div key={uniqueId()} className="mt-3">
+                  <p className={headerStyle}>{messageHeader}</p>
                   <p className={textAlign}>{message}</p>
                 </div>
               );

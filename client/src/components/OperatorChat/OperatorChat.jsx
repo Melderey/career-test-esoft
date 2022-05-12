@@ -20,6 +20,7 @@ const OperatorChat = () => {
   useEffect(() => {
     socket.current.onmessage = (e) => {
       const message = JSON.parse(e.data);
+
       setTextChat([...textChat, message]);
     };
   }, [textChat]);
@@ -30,7 +31,7 @@ const OperatorChat = () => {
     const message = {
       type: OPERATOR,
       message: value,
-      id: Date.now(),
+      date: new Date().toLocaleString().slice(0, -3),
       event: "message",
     };
 
@@ -72,13 +73,14 @@ const OperatorChat = () => {
           </div>
 
           <div className="container">
-            {textChat.map(({ message, type }) => {
+            {textChat.map(({ message, type, date }) => {
               const textAlign = type === OPERATOR ? "text-right" : "text-left";
-
-              console.log(textAlign);
+              const messageHeader = `${type} ${date}`;
+              const headerStyle = `${textAlign} header-style`;
 
               return (
-                <div key={uniqueId()} className="p-0 m-0 pt-0">
+                <div key={uniqueId()} className="mt-3">
+                  <p className={headerStyle}>{messageHeader}</p>
                   <p className={textAlign}>{message}</p>
                 </div>
               );
