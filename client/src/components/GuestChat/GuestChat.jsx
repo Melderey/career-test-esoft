@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { uniqueId } from "lodash";
 
-import "./UserChat.css";
+import "./GuestChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
 import { PORT, USER_URL } from "../../constants";
 
-const UserChat = () => {
+const GuestChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
   const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
@@ -35,7 +35,7 @@ const UserChat = () => {
   return (
     <>
       {isChatShow ? (
-        <div className="user-chat">
+        <div className="guest-chat">
           <div className="bg-info p-2 rounded-top">
             <h3>Поддержка</h3>
             <p>Напишите ваше сообщение</p>
@@ -78,4 +78,4 @@ const UserChat = () => {
   );
 };
 
-export default UserChat;
+export default GuestChat;

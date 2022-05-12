@@ -1,4 +1,4 @@
-.user-chat {
+.guest-chat {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,7 +17,7 @@
   border-top-right-radius: 0.25rem;
 }
 
-.user-chat h3 {
+.guest-chat h3 {
   margin: 0;
   color: #000;
 }

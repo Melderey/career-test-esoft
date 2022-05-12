@@ -1,11 +1,11 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import {
-  CHAT_ROUTE,
+  GUEST_ROUTE,
   LOGIN_ROUTE,
   MAIN_ROUTE,
   OPERATOR_ROUTE,
 } from "../../constants";
-import UserChat from "../UserChat/UserChat";
+import GuestChat from "../GuestChat/GuestChat";
 import Login from "../Login/Login";
 import OperatorChat from "../OperatorChat/OperatorChat";
 import Main from "../Main/Main";
@@ -20,9 +20,9 @@ const AppRouter = () => {
         exact={true} 
       />
       <Route
-        key={CHAT_ROUTE}
-        path={CHAT_ROUTE}
-        component={UserChat}
+        key={GUEST_ROUTE}
+        path={GUEST_ROUTE}
+        component={GuestChat}
         exact={true}
       />
       <Route

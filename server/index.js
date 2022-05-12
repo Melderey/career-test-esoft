@@ -4,12 +4,12 @@ const expressWs = require("express-ws")(app);
 const aWss = expressWs.getWss();
 const cors = require("cors");
 
-const { PORT, CHAT_ROUTE } = require("./constants.js");
+const { PORT, GUEST_ROUTE } = require("./constants.js");
 
 app.use(cors());
 app.use(express.json());
 
-app.ws(CHAT_ROUTE, (ws, req) => {
+app.ws(GUEST_ROUTE, (ws, req) => {
   ws.on("message", (message) => {
     message = JSON.parse(message);
 
