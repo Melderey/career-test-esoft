@@ -5,27 +5,14 @@ import { OPERATOR } from "../../constants";
 import "./OperatorChat.css";
 import textChatMap from "../../functions/textChatMap";
 import Connect from "../../functions/connect";
+import handleSubmitForm from "../../functions/handleSubmitForm";
 
 const OperatorChat = () => {
   const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
   const socket = useRef();
-  
+
   Connect(socket, textChat, setTextChat);
-
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-
-    const message = {
-      type: OPERATOR,
-      text: value,
-      date: new Date().toLocaleString().slice(0, -3),
-      event: "message",
-    };
-
-    await socket.current.send(JSON.stringify(message));
-    setValue("");
-  };
 
   return (
     <div className="d-flex m-2">
@@ -73,8 +60,11 @@ const OperatorChat = () => {
                 aria-label="Введите сообщение"
                 aria-describedby="button-addon2"
               ></input>
+
               <button
-                onClick={handleSubmitForm}
+                onClick={(event) =>
+                  handleSubmitForm(event, value, setValue, OPERATOR, socket)
+                }
                 className="btn btn-outline-secondary rounded-0"
                 type="submit"
               >

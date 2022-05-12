@@ -5,28 +5,15 @@ import CollapseBtn from "../СollapseBtn/СollapseBtn";
 import { GUEST } from "../../constants";
 import textChatMap from "../../functions/textChatMap";
 import Connect from "../../functions/connect";
+import handleSubmitForm from "../../functions/handleSubmitForm";
 
 const GuestChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
   const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
   const socket = useRef();
-  
+
   Connect(socket, textChat, setTextChat);
-
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-
-    const message = {
-      type: GUEST,
-      text: value,
-      date: new Date().toLocaleString().slice(0, -3),
-      event: "message",
-    };
-
-    await socket.current.send(JSON.stringify(message));
-    setValue("");
-  };
 
   return (
     <>
@@ -50,8 +37,11 @@ const GuestChat = () => {
                 aria-label="Введите сообщение"
                 aria-describedby="button-addon2"
               ></input>
+
               <button
-                onClick={handleSubmitForm}
+                onClick={(event) =>
+                  handleSubmitForm(event, value, setValue, GUEST, socket)
+                }
                 className="btn btn-outline-secondary rounded-0"
                 type="submit"
               >
