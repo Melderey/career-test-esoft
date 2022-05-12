@@ -3,7 +3,7 @@ import { uniqueId } from "lodash";
 
 import "./GuestChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
-import { PORT, USER_URL } from "../../constants";
+import { GUEST, PORT, USER_URL } from "../../constants";
 
 const GuestChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
@@ -20,7 +20,11 @@ const GuestChat = () => {
 
   useEffect(() => {
     socket.current.onmessage = (e) => {
+      // const { message, type } = JSON.parse(e.data);
+
       const message = JSON.parse(e.data);
+
+      console.log(message);
       setTextChat([...textChat, message]);
     };
   }, [textChat]);
@@ -28,7 +32,14 @@ const GuestChat = () => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    await socket.current.send(JSON.stringify(value));
+    const message = {
+      type: GUEST,
+      message: value,
+      id: Date.now(),
+      event: "message",
+    };
+
+    await socket.current.send(JSON.stringify(message));
     setValue("");
   };
 
@@ -42,10 +53,14 @@ const GuestChat = () => {
           </div>
 
           <div className="p-2 container">
-            {textChat.map((el) => {
+            {textChat.map(({ message, type }) => {
+              const textAlign = type === GUEST ? "text-right" : "text-left";
+
+              console.log(textAlign);
+
               return (
-                <div key={uniqueId()}>
-                  <p>{el}</p>
+                <div key={uniqueId()} >
+                  <p className={textAlign}>{message}</p>
                 </div>
               );
             })}

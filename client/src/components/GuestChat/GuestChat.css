@@ -27,3 +27,11 @@
   overflow-y: auto;
   max-height: 19rem;
 }
+
+.text-right {
+  text-align: right;
+}
+
+.text-leftt {
+  text-align: left;
+}

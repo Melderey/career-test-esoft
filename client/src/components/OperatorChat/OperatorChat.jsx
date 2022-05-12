@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { uniqueId } from "lodash";
 
-import { PORT, USER_URL } from "../../constants";
+import { PORT, USER_URL, OPERATOR } from "../../constants";
 
 import "./OperatorChat.css";
 
@@ -27,7 +27,14 @@ const OperatorChat = () => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    await socket.current.send(JSON.stringify(value));
+    const message = {
+      type: OPERATOR,
+      message: value,
+      id: Date.now(),
+      event: "message",
+    };
+
+    await socket.current.send(JSON.stringify(message));
     setValue("");
   };
 
@@ -65,10 +72,14 @@ const OperatorChat = () => {
           </div>
 
           <div className="container">
-            {textChat.map((el) => {
+            {textChat.map(({ message, type }) => {
+              const textAlign = type === OPERATOR ? "text-right" : "text-left";
+
+              console.log(textAlign);
+
               return (
                 <div key={uniqueId()} className="p-0 m-0 pt-0">
-                  <p>{el}</p>
+                  <p className={textAlign}>{message}</p>
                 </div>
               );
             })}
