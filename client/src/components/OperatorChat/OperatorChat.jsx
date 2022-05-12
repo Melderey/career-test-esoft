@@ -1,29 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
-import { PORT, USER_URL, OPERATOR } from "../../constants";
+import { OPERATOR } from "../../constants";
 
 import "./OperatorChat.css";
 import textChatMap from "../../functions/textChatMap";
+import Connect from "../../functions/connect";
 
 const OperatorChat = () => {
   const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
   const socket = useRef();
-
-  useEffect(() => {
-    socket.current = new WebSocket(USER_URL);
-    socket.current.onopen = () => {
-      console.log(`Подключение ws установленно на порту ${PORT}`);
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.current.onmessage = (e) => {
-      const message = JSON.parse(e.data);
-
-      setTextChat([...textChat, message]);
-    };
-  }, [textChat]);
+  
+  Connect(socket, textChat, setTextChat);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();

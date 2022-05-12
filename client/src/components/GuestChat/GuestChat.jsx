@@ -1,31 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import "./GuestChat.css";
 import CollapseBtn from "../СollapseBtn/СollapseBtn";
-import { GUEST, PORT, USER_URL } from "../../constants";
+import { GUEST } from "../../constants";
 import textChatMap from "../../functions/textChatMap";
+import Connect from "../../functions/connect";
 
 const GuestChat = () => {
   const [isChatShow, setIsChatShow] = useState(false);
   const [value, setValue] = useState("");
   const [textChat, setTextChat] = useState([]);
   const socket = useRef();
-
-  useEffect(() => {
-    socket.current = new WebSocket(USER_URL);
-    socket.current.onopen = () => {
-      console.log(`Подключение ws установленно на порту ${PORT}`);
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.current.onmessage = (e) => {
-      const message = JSON.parse(e.data);
-
-      console.log(message);
-      setTextChat([...textChat, message]);
-    };
-  }, [textChat]);
+  
+  Connect(socket, textChat, setTextChat);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -51,7 +38,7 @@ const GuestChat = () => {
           </div>
 
           <div className="p-2 container">{textChatMap(textChat, GUEST)}</div>
-          
+
           <form>
             <div className="align-self-center input-group">
               <input
