@@ -7,14 +7,14 @@ const Connect = (socket, textChat, setTextChat) => {
     socket.current.onopen = () => {
       console.log(`Подключение ws установленно на порту ${PORT}`);
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     socket.current.onmessage = (e) => {
       const message = JSON.parse(e.data);
       setTextChat([...textChat, message]);
     };
-  }, [textChat]);
+  }, [socket, textChat, setTextChat]);
 
   socket.onerror = (error) => {
     throw error;

@@ -23,7 +23,7 @@ const OperatorChat = () => {
           </div>
 
           <div>
-            <ul className="list-group container p-0">
+            <ul className="list-group container p-0 rounded-0">
               <li className="list-group-item active" aria-current="true">
                 Активный пользователь
               </li>
