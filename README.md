@@ -6,4 +6,4 @@
 
 Что бы запустить проект, выполни команду `npm install` и `npm start` в директории server и client.
 
-_P.S. Вы можете написать мне https://t.me/Melderey_
+_P.S. Можешь написать мне https://t.me/Melderey_
